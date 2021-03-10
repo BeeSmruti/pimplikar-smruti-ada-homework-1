@@ -10,6 +10,7 @@ output:
 ```{r}
 ## random snippet of code on the internet to be able to knit rmd files. (not sure what it is doing but it did it)
 chooseCRANmirror(graphics=FALSE, ind=1)
+## package for most things to be used for the challenges. Also includes stringr and dplyr
 install.packages("tidyverse")
 library(tidyverse)
 ## loading the test from the last chapter of On the Origin of Species
