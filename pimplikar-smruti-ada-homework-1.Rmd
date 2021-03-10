@@ -1,0 +1,129 @@
+---
+title: "homework1"
+author: "SP"
+date: "3/5/2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+chooseCRANmirror(graphics=FALSE, ind=1)
+install.packages("tidyverse")
+library(tidyverse)
+## loading the test from the last chapter of On the Origin of Species
+s<-read.delim(file.choose())
+## Calculate and print out how many paragraphs in the chapter
+nrow(s)
+## Print out the element that is the 34th paragraph from the chapter
+s[34,]
+## Split the chapter into a new vector, split, comprising a vector of 1-word character strings 
+split<-str_split(s[34,], " ", n = Inf, simplify = FALSE)
+split
+split2<-split[1][[1]]
+str(split2)
+## unique words  in this vector
+h<-unique(split2)
+length(h)
+## most common word
+str_order(split2, decreasing=FALSE)
+t<-table(split2)
+t1<-sort(t)
+t1[129]
+b<-as.data.frame(t1, row.names = NULL, optional=FALSE)
+b
+## how many words appear exactly once? 
+b
+nrow(filter(b, Freq==1))
+## how many appear five times or more? 
+nrow(filter(b, Freq>=5))
+## get the final para of the text
+final_quote<-s[56,]
+## split into 1 word char strings
+split_quote<-str_split(s[56,], " ", n = Inf, simplify = FALSE)
+c<-split_quote[1][[1]]
+## every 3rd element extracted 
+every_third<-c[seq(3, length(c), 3)]
+## print new vector
+every_third
+## print reverse of new vector
+sort(every_third, decreasing = TRUE)
+```
+
+
+```{r}
+## vector for cities
+city<-c("Beijing", "Lagos", "Paris", "Rio de Janeiro", "San Juan", "Toronto")
+## vector for temperatures
+t<-c(35, 88, 42, 84, 81, 30)
+## assign city vector to the highest temperature vector and print it
+names(t)<-city
+t
+## print the first three cities and corresponding temps
+t[1:3]
+## print the names and temps of Paris and San Juan
+t[c(3,5)]
+```
+
+```{r}
+## create matrix of given dimensions. Matrices are filled column wise by default. 
+m1 <- matrix(
+  data = 160:1,
+  nrow = 8,
+  ncol = 20
+)
+m1
+## extract and print element of 5th row and 2nd column
+m1[5,2]
+## extract and print rows 5-7. Blank after comma indicates that all columns (within this parameter) will be printed
+m1[5:7, ]
+## extract and print elements both in rows 3 and 4 and columns 6-9
+m2<-m1[3:4,6:9]
+m2
+## class and mode of variable
+class(m2)
+mode(m2)
+```
+
+```{r}
+## create array of given dimensions
+a <- array(data = 2:800, dim = c(5,5,4,4))
+## print following elements as per challenge
+a[1, 1, 1, 2]
+a[2, 3, 2, ]
+a[1:5, 1:5, 3, 3]
+```
+
+```{r}
+## create a vector for all superfamilies where families constitute each element
+Superfamily_Lorisoidea<-list("Lorisidae", "Galagidae")
+Superfamily_Lemuroidea<-list("Cheirogaleidae", "Lepilemuridae", "Indriidae", "Lemuridae", "Daubentoniidae")
+## list the elements of superfamily vector under specific infraorder 
+Infraorder_Lemuriformes<-list(Superfamily_Lemuroidea)
+Infraorder_Lorisiformes<-list(Superfamily_Lorisoidea)
+## list infraorder under suborder
+Suborder_Strepsirhini<-list(Infraorder_Lemuriformes, Infraorder_Lorisiformes)
+Superfamily_Tarsioidea<-list("Tarsidae")
+Superfamily_Ceboidea<-list("Cebidae", "Atelidae", "Pitheciidae")
+Superfamily_Hominoidea<-list("Hylobatidae", "Hominidae")
+Superfamily_Cercopithecoidea<-list("Cercopithecidae")
+Infraorder_Tarsiiformes<-list(Superfamily_Tarsioidea)
+## list the elements of superfamily vector under specific parvorder 
+Parvorder_Platyrrhini<-list(Superfamily_Ceboidea)
+Parvorder_Catarrhini<-list(Superfamily_Hominoidea, Superfamily_Cercopithecoidea)
+Infraorder_Simiiformes<-list(Parvorder_Platyrrhini, Parvorder_Catarrhini)
+Suborder_Haplorhini<-list(Infraorder_Tarsiiformes, Infraorder_Simiiformes)
+Order_Primates<-list(Suborder_Strepsirhini, Suborder_Haplorhini)
+Order_Primates
+## using [[]] to extract members of parvorder platyrrhini, find mode and class
+platyrrhines<-Infraorder_Simiiformes[[1]]
+mode(platyrrhines)
+class(platyrrhines)
+## using $ to extract the tarisers
+Infraorder_Tarsiiformes<-list(Superfamily_Tarsioidea=Superfamily_Tarsioidea)
+tar<-Infraorder_Tarsiiformes$Superfamily_Tarsioidea
+tar
+```
+
+
+
